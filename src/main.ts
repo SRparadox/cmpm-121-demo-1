@@ -7,17 +7,17 @@ const gameName = "Clicker Game 101";
 document.title = gameName;
 
 // Button HERE
-document.addEventListener('DOMContentLoaded', () => {
-    const button = document.getElementById('myButton');
-    
-    if (button) {
-        button.addEventListener('click', () => {
-            console.log('Button was clicked!');
-            alert('Button clicked!');
-        });
-    } else {
-        console.error('Button not found!');
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("myButton");
+
+  if (button) {
+    button.addEventListener("click", () => {
+      console.log("Button was clicked!");
+      alert("Button clicked!");
+    });
+  } else {
+    console.error("Button not found!");
+  }
 });
 
 const header = document.createElement("h1");
