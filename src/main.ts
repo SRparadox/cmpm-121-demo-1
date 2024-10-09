@@ -14,12 +14,29 @@ obj.innerText = "0 Lollipops";
 obj.className = "test";
 //document.getElementById("counterDisplay").appendChild(obj); //WHY DOES THIS NOT ALLOW ME TO COMMITTTTTTTT!!!! AHH
 
-// Set up the timer to call the increment function every second (1000 milliseconds)
-function incrementCounter() {
-  counter += 1;
-  obj.innerText = counter + " Lollipops Lollipopped";
+let lastTime = performance.now();
+
+// Function to update the counter using requestAnimationFrame
+function updateCounter(currentTime: number) {
+  // Calculate the time elapsed since the last update
+  const deltaTime = (currentTime - lastTime);
+
+  // Check if a second (1000 milliseconds) has passed
+  if (deltaTime >= 1000) {
+    // Increment the counter
+    counter += Math.floor(deltaTime/1000);
+    obj.innerText = counter + " Lollipops Lollipopped";
+
+    // Update the lastTime to the current time
+    lastTime = currentTime;
+  }
+
+  // Request the next frame
+  requestAnimationFrame(updateCounter);
 }
-setInterval(incrementCounter, 1000);
+
+// Start the animation loop
+requestAnimationFrame(updateCounter);
 
 // Button HERE
 document.addEventListener("DOMContentLoaded", () => {
