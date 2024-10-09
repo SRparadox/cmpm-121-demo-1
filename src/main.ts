@@ -17,7 +17,7 @@ obj.className = "test";
 //document.getElementById("counterDisplay").appendChild(obj); //WHY DOES THIS NOT ALLOW ME TO COMMITTTTTTTT!!!! AHH
 const counterDisplay = document.getElementById("counterDisplay");
 if (counterDisplay) {
-    counterDisplay.appendChild(obj);
+  counterDisplay.appendChild(obj);
 }
 
 let lastTime = performance.now();
@@ -32,7 +32,9 @@ function updateCounter(currentTime: number) {
 
   // Enable or disable the upgrade button based on counter value
   //document.getElementById("upgradeButton").disabled = counter < 10;
-  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton = document.getElementById(
+    "upgradeButton",
+  ) as HTMLButtonElement;
   if (upgradeButton) {
     upgradeButton.disabled = counter < 10;
   }
