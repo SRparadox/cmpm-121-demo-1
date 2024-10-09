@@ -9,15 +9,14 @@ document.title = gameName;
 // Counter Increase and Growth Rate
 let counter = 0;
 let growthRate = 0;
-let temp1 = 0;
+//let temp1 = 0;
 
 const obj = document.createElement("div");
 obj.innerText = "0 Lollipops";
 obj.className = "test";
-//document.getElementById("counterDisplay").appendChild(obj); //WHY DOES THIS NOT ALLOW ME TO COMMITTTTTTTT!!!! AHH
 const counterDisplay = document.getElementById("counterDisplay");
 if (counterDisplay) {
-  counterDisplay.appendChild(obj);
+    counterDisplay.appendChild(obj);
 }
 
 let lastTime = performance.now();
@@ -27,24 +26,22 @@ function updateCounter(currentTime: number) {
   // Calculate the time elapsed since the last update
   const deltaTime = currentTime - lastTime;
 
-  // Display the updated counter value
-  document.getElementById("counter")!.textContent = growthRate.toString();
+  // Display the updated growthrate value
+  document.getElementById("counter")!.textContent = (growthRate).toString();
 
   // Enable or disable the upgrade button based on counter value
-  //document.getElementById("upgradeButton").disabled = counter < 10;
-  const upgradeButton = document.getElementById(
-    "upgradeButton",
-  ) as HTMLButtonElement;
+  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
   if (upgradeButton) {
     upgradeButton.disabled = counter < 10;
   }
+
   // Check if a second (1000 milliseconds) has passed
   if (deltaTime >= 1000) {
-    // Increment the counter
-    counter += Math.floor(deltaTime / 1000);
+    // Update counter based only on growth rate
+    counter += growthRate;
+
     obj.innerText = counter + " Lollipops Lollipopped";
-    temp1 = Math.floor(deltaTime / 1000);
-    // Update the lastTime to the current time
+    // Update the lastTime for accurate time-keeping
     lastTime = currentTime;
   }
 
@@ -55,18 +52,23 @@ function updateCounter(currentTime: number) {
 // Start the animation loop
 requestAnimationFrame(updateCounter);
 
-// Add event listener for the purchase button
-const upgradeButton = document.getElementById("upgradeButton");
-if (upgradeButton) {
-  upgradeButton.addEventListener("click", () => {
-    if (counter >= 10) {
-      counter -= 10;
-      growthRate += temp1;
-    }
-  });
-} else {
-  console.error("Upgrade button not found!");
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+
+  if (upgradeButton) {
+    upgradeButton.addEventListener("click", () => {
+      if (counter >= 10) {
+        counter -= 10;
+        growthRate += 1;
+      }
+    });
+  } else {
+    console.error("Upgrade button not found!");
+  }
+
+// Other DOM-related code goes here
+
+});
 
 // Button HERE
 document.addEventListener("DOMContentLoaded", () => {
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (button) {
     button.addEventListener("click", () => {
       console.log("Button was clicked!");
-      counter += 1; //Increase the counter
+      counter += 1; //Increase the button
       //alert(counter);
       obj.innerText = counter + " Lollipops Lollipopped";
     });
