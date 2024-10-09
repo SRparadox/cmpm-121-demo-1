@@ -9,7 +9,6 @@ document.title = gameName;
 // Counter Increase and Growth Rate
 let counter = 0;
 let growthRate = 0;
-//let temp1 = 0;
 
 const obj = document.createElement("div");
 obj.innerText = "0 Lollipops";
