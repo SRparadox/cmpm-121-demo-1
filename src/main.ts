@@ -16,7 +16,7 @@ obj.innerText = "0 Lollipops";
 obj.className = "test";
 const counterDisplay = document.getElementById("counterDisplay");
 if (counterDisplay) {
-    counterDisplay.appendChild(obj);
+  counterDisplay.appendChild(obj);
 }
 
 let lastTime = performance.now();
@@ -27,10 +27,12 @@ function updateCounter(currentTime: number) {
   const deltaTime = currentTime - lastTime;
 
   // Display the updated growthrate value
-  document.getElementById("counter")!.textContent = (growthRate).toString();
+  document.getElementById("counter")!.textContent = growthRate.toString();
 
   // Enable or disable the upgrade button based on counter value
-  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton = document.getElementById(
+    "upgradeButton",
+  ) as HTMLButtonElement;
   if (upgradeButton) {
     upgradeButton.disabled = counter < 10;
   }
@@ -53,7 +55,9 @@ function updateCounter(currentTime: number) {
 requestAnimationFrame(updateCounter);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton = document.getElementById(
+    "upgradeButton",
+  ) as HTMLButtonElement;
 
   if (upgradeButton) {
     upgradeButton.addEventListener("click", () => {
@@ -66,8 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Upgrade button not found!");
   }
 
-// Other DOM-related code goes here
-
+  // Other DOM-related code goes here
 });
 
 // Button HERE
