@@ -19,12 +19,12 @@ let lastTime = performance.now();
 // Function to update the counter using requestAnimationFrame
 function updateCounter(currentTime: number) {
   // Calculate the time elapsed since the last update
-  const deltaTime = (currentTime - lastTime);
+  const deltaTime = currentTime - lastTime;
 
   // Check if a second (1000 milliseconds) has passed
   if (deltaTime >= 1000) {
     // Increment the counter
-    counter += Math.floor(deltaTime/1000);
+    counter += Math.floor(deltaTime / 1000);
     obj.innerText = counter + " Lollipops Lollipopped";
 
     // Update the lastTime to the current time
