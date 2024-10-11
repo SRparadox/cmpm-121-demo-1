@@ -1,4 +1,3 @@
-// Import the stylesheet
 import "./style.css";
 
 // DOM elements and variables setup
@@ -12,6 +11,11 @@ let growthButtonClicks = 0;
 let tier2ButtonClicks = 0;
 let tier3ButtonClicks = 0;
 
+// Initialize tier costs
+let tier1Cost = 10;
+let tier2Cost = 50;
+let tier3Cost = 200;
+
 // Counter display setup
 const counterDisplay = document.getElementById("counterDisplay");
 const counterElement = document.createElement("div");
@@ -20,19 +24,35 @@ counterElement.className = "counter-text";
 counterDisplay?.appendChild(counterElement);
 
 const buttonClickElement = document.createElement("div");
-buttonClickElement.innerText = "Tier 1 Purchased: 0";
+buttonClickElement.innerText = `Tier 1 Purchased: 0`;
 buttonClickElement.className = "click-text";
 counterDisplay?.appendChild(buttonClickElement);
 
 const tier2ClickElement = document.createElement("div");
-tier2ClickElement.innerText = "Tier 2 Purchased: 0";
+tier2ClickElement.innerText = `Tier 2 Purchased: 0`;
 tier2ClickElement.className = "click-text";
 counterDisplay?.appendChild(tier2ClickElement);
 
 const tier3ClickElement = document.createElement("div");
-tier3ClickElement.innerText = "Tier 3 Purchased: 0";
+tier3ClickElement.innerText = `Tier 3 Purchased: 0`;
 tier3ClickElement.className = "click-text";
 counterDisplay?.appendChild(tier3ClickElement);
+
+// Cost display elements
+const tier1CostElement = document.createElement("div");
+tier1CostElement.innerText = `Tier 1 Cost: ${tier1Cost.toFixed(2)}`;
+tier1CostElement.className = "cost-text";
+counterDisplay?.appendChild(tier1CostElement);
+
+const tier2CostElement = document.createElement("div");
+tier2CostElement.innerText = `Tier 2 Cost: ${tier2Cost.toFixed(2)}`;
+tier2CostElement.className = "cost-text";
+counterDisplay?.appendChild(tier2CostElement);
+
+const tier3CostElement = document.createElement("div");
+tier3CostElement.innerText = `Tier 3 Cost: ${tier3Cost.toFixed(2)}`;
+tier3CostElement.className = "cost-text";
+counterDisplay?.appendChild(tier3CostElement);
 
 let lastTime = performance.now();
 
@@ -46,25 +66,20 @@ function updateCounter(currentTime: number) {
   }
 
   // Update button disable conditions with new costs
-  const upgradeButton = document.getElementById(
-    "upgradeButton",
-  ) as HTMLButtonElement;
+  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton1 = document.getElementById("upgradeButton1") as HTMLButtonElement;
+  const upgradeButton10 = document.getElementById("upgradeButton10") as HTMLButtonElement;
+
   if (upgradeButton) {
-    upgradeButton.disabled = counter < 10;
+    upgradeButton.disabled = counter < tier1Cost;
   }
 
-  const upgradeButton1 = document.getElementById(
-    "upgradeButton1",
-  ) as HTMLButtonElement;
   if (upgradeButton1) {
-    upgradeButton1.disabled = counter < 50;
+    upgradeButton1.disabled = counter < tier2Cost;
   }
 
-  const upgradeButton10 = document.getElementById(
-    "upgradeButton10",
-  ) as HTMLButtonElement;
   if (upgradeButton10) {
-    upgradeButton10.disabled = counter < 200;
+    upgradeButton10.disabled = counter < tier3Cost;
   }
 
   if (deltaTime >= 1000) {
@@ -78,47 +93,47 @@ function updateCounter(currentTime: number) {
 
 // Initialize DOM content once loaded
 document.addEventListener("DOMContentLoaded", () => {
-  const upgradeButton = document.getElementById(
-    "upgradeButton",
-  ) as HTMLButtonElement;
-  const upgradeButton1 = document.getElementById(
-    "upgradeButton1",
-  ) as HTMLButtonElement;
-  const upgradeButton10 = document.getElementById(
-    "upgradeButton10",
-  ) as HTMLButtonElement;
+  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton1 = document.getElementById("upgradeButton1") as HTMLButtonElement;
+  const upgradeButton10 = document.getElementById("upgradeButton10") as HTMLButtonElement;
   const clickButton = document.getElementById("myButton");
 
   if (upgradeButton)
-    upgradeButton.addEventListener("click", () => handleUpgrade(10, 0.1, 1));
+    upgradeButton.addEventListener("click", () => handleUpgrade(tier1Cost, 0.1, 1));
   if (upgradeButton1)
-    upgradeButton1.addEventListener("click", () => handleUpgrade(50, 1.0, 2));
+    upgradeButton1.addEventListener("click", () => handleUpgrade(tier2Cost, 1.0, 2));
   if (upgradeButton10)
-    upgradeButton10.addEventListener("click", () => handleUpgrade(200, 10.0, 3));
+    upgradeButton10.addEventListener("click", () => handleUpgrade(tier3Cost, 10.0, 3));
   if (clickButton) clickButton.addEventListener("click", handleButtonClick);
 
   createHeader();
   requestAnimationFrame(updateCounter);
 });
 
-function handleUpgrade(
-  cost: number,
-  increment: number,
-  tier: number,
-) {
+function handleUpgrade(cost: number, increment: number, tier: number) {
   if (counter >= cost) {
     counter -= cost;
     growthRate += increment;
 
-    if (tier === 1) {
-      growthButtonClicks += 1;
-      buttonClickElement.innerText = `Tier 1 Purchased: ${growthButtonClicks}`;
-    } else if (tier === 2) {
-      tier2ButtonClicks += 1;
-      tier2ClickElement.innerText = `Tier 2 Purchased: ${tier2ButtonClicks}`;
-    } else if (tier === 3) {
-      tier3ButtonClicks += 1;
-      tier3ClickElement.innerText = `Tier 3 Purchased: ${tier3ButtonClicks}`;
+    switch (tier) {
+      case 1:
+        growthButtonClicks += 1;
+        buttonClickElement.innerText = `Tier 1 Purchased: ${growthButtonClicks}`;
+        tier1Cost *= 1.15;
+        tier1CostElement.innerText = `Tier 1 Cost: ${tier1Cost.toFixed(2)}`;
+        break;
+      case 2:
+        tier2ButtonClicks += 1;
+        tier2ClickElement.innerText = `Tier 2 Purchased: ${tier2ButtonClicks}`;
+        tier2Cost *= 1.15;
+        tier2CostElement.innerText = `Tier 2 Cost: ${tier2Cost.toFixed(2)}`;
+        break;
+      case 3:
+        tier3ButtonClicks += 1;
+        tier3ClickElement.innerText = `Tier 3 Purchased: ${tier3ButtonClicks}`;
+        tier3Cost *= 1.15;
+        tier3CostElement.innerText = `Tier 3 Cost: ${tier3Cost.toFixed(2)}`;
+        break;
     }
   }
 }
