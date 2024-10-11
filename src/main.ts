@@ -1,20 +1,38 @@
+// Import the stylesheet
 import "./style.css";
 
-// Title of the App
+// DOM elements and variables setup
 const app: HTMLDivElement = document.querySelector("#app")!;
 const gameName = "Clicker Game 101";
 document.title = gameName;
 
-// Counter and Growth Rate
 let counter = 0;
 let growthRate = 0;
+let growthButtonClicks = 0;
+let tier2ButtonClicks = 0;
+let tier3ButtonClicks = 0;
 
-// Create and display counter element
+// Counter display setup
 const counterDisplay = document.getElementById("counterDisplay");
 const counterElement = document.createElement("div");
 counterElement.innerText = "0 Lollipops";
 counterElement.className = "counter-text";
 counterDisplay?.appendChild(counterElement);
+
+const buttonClickElement = document.createElement("div");
+buttonClickElement.innerText = "Tier 1 Purchased: 0";
+buttonClickElement.className = "click-text";
+counterDisplay?.appendChild(buttonClickElement);
+
+const tier2ClickElement = document.createElement("div");
+tier2ClickElement.innerText = "Tier 2 Purchased: 0";
+tier2ClickElement.className = "click-text";
+counterDisplay?.appendChild(tier2ClickElement);
+
+const tier3ClickElement = document.createElement("div");
+tier3ClickElement.innerText = "Tier 3 Purchased: 0";
+tier3ClickElement.className = "click-text";
+counterDisplay?.appendChild(tier3ClickElement);
 
 let lastTime = performance.now();
 
@@ -22,13 +40,12 @@ let lastTime = performance.now();
 function updateCounter(currentTime: number) {
   const deltaTime = currentTime - lastTime;
 
-  // Update growth rate display
   const counterText = document.getElementById("counter");
   if (counterText) {
     counterText.textContent = growthRate.toFixed(1);
   }
 
-  // Update the upgrade button's state
+  // Update button disable conditions with new costs
   const upgradeButton = document.getElementById(
     "upgradeButton",
   ) as HTMLButtonElement;
@@ -36,7 +53,20 @@ function updateCounter(currentTime: number) {
     upgradeButton.disabled = counter < 10;
   }
 
-  // Increase counter at the interval of 1 second
+  const upgradeButton1 = document.getElementById(
+    "upgradeButton1",
+  ) as HTMLButtonElement;
+  if (upgradeButton1) {
+    upgradeButton1.disabled = counter < 50;
+  }
+
+  const upgradeButton10 = document.getElementById(
+    "upgradeButton10",
+  ) as HTMLButtonElement;
+  if (upgradeButton10) {
+    upgradeButton10.disabled = counter < 200;
+  }
+
   if (deltaTime >= 1000) {
     counter += growthRate;
     counterElement.innerText = `${counter.toFixed(1)} Lollipops Lollipopped`;
@@ -51,29 +81,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const upgradeButton = document.getElementById(
     "upgradeButton",
   ) as HTMLButtonElement;
+  const upgradeButton1 = document.getElementById(
+    "upgradeButton1",
+  ) as HTMLButtonElement;
+  const upgradeButton10 = document.getElementById(
+    "upgradeButton10",
+  ) as HTMLButtonElement;
   const clickButton = document.getElementById("myButton");
 
-  if (upgradeButton) {
-    upgradeButton.addEventListener("click", handleUpgrade);
-  } else {
-    console.error("Upgrade button not found!");
-  }
-
-  if (clickButton) {
-    clickButton.addEventListener("click", handleButtonClick);
-  } else {
-    console.error("Button not found!");
-  }
+  if (upgradeButton)
+    upgradeButton.addEventListener("click", () => handleUpgrade(10, 0.1, 1));
+  if (upgradeButton1)
+    upgradeButton1.addEventListener("click", () => handleUpgrade(50, 1.0, 2));
+  if (upgradeButton10)
+    upgradeButton10.addEventListener("click", () => handleUpgrade(200, 10.0, 3));
+  if (clickButton) clickButton.addEventListener("click", handleButtonClick);
 
   createHeader();
   requestAnimationFrame(updateCounter);
 });
 
-// Handle the upgrade button click
-function handleUpgrade() {
-  if (counter >= 10) {
-    counter -= 10;
-    growthRate += 0.1;
+function handleUpgrade(
+  cost: number,
+  increment: number,
+  tier: number,
+) {
+  if (counter >= cost) {
+    counter -= cost;
+    growthRate += increment;
+
+    if (tier === 1) {
+      growthButtonClicks += 1;
+      buttonClickElement.innerText = `Tier 1 Purchased: ${growthButtonClicks}`;
+    } else if (tier === 2) {
+      tier2ButtonClicks += 1;
+      tier2ClickElement.innerText = `Tier 2 Purchased: ${tier2ButtonClicks}`;
+    } else if (tier === 3) {
+      tier3ButtonClicks += 1;
+      tier3ClickElement.innerText = `Tier 3 Purchased: ${tier3ButtonClicks}`;
+    }
   }
 }
 
