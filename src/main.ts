@@ -29,7 +29,9 @@ function updateCounter(currentTime: number) {
   }
 
   // Update the upgrade button's state
-  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton = document.getElementById(
+    "upgradeButton",
+  ) as HTMLButtonElement;
   if (upgradeButton) {
     upgradeButton.disabled = counter < 10;
   }
@@ -46,7 +48,9 @@ function updateCounter(currentTime: number) {
 
 // Initialize DOM content once loaded
 document.addEventListener("DOMContentLoaded", () => {
-  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const upgradeButton = document.getElementById(
+    "upgradeButton",
+  ) as HTMLButtonElement;
   const clickButton = document.getElementById("myButton");
 
   if (upgradeButton) {
@@ -54,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.error("Upgrade button not found!");
   }
-  
+
   if (clickButton) {
     clickButton.addEventListener("click", handleButtonClick);
   } else {
