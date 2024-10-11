@@ -74,3 +74,24 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.strawberry-color {
+  color: rgb(255, 99, 132);  /* A soft strawberry red */
+}
+
+.blueberry-color {
+  color: rgb(54, 162, 235);  /* A cool blueberry blue */
+}
+
+.lemon-color {
+  color: rgb(255, 206, 86);  /* A bright lemon yellow */
+}
+
+.thief-color {
+  color: rgb(75, 192, 192);  /* A stealthy mint green */
+}
+
+.mage-color {
+  color: rgb(153, 102, 255);  /* A mystical purple */
+}
+

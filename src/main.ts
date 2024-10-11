@@ -4,12 +4,46 @@ interface Item {
   name: string;
   cost: number;
   rate: number;
+  description: string;
+  colorClass: string;  // New field for color class
 }
 
 const availableItems: Item[] = [
-  { name: "Strawberry", cost: 10, rate: 0.1 },
-  { name: "Blueberry", cost: 100, rate: 2 },
-  { name: "Lemon", cost: 1000, rate: 50 },
+  {
+    name: "Strawberry",
+    cost: 10,
+    rate: 0.1,
+    description: "They say that the universe was created by the diety of the Strawberry lollipops: Strawberry!",
+    colorClass: "strawberry-color",
+  },
+  {
+    name: "Blueberry",
+    cost: 100,
+    rate: 2,
+    description: "The seas and the sky reprecent the twin aspects of the path of the omniprescence of Blueberry!",
+    colorClass: "blueberry-color",
+  },
+  {
+    name: "Lemon",
+    cost: 1000,
+    rate: 50,
+    description: "The big fiery light in the sky is not a star, but Lemon 'The Burning Lollipop'!",
+    colorClass: "lemon-color",
+  },
+  {
+    name: "Lollipop Thief",
+    cost: 20,
+    rate: 2,
+    description: "The worst of the worst, there are tales of thiefs that steal lollpops. Their services can be bought, but at what cost?",
+    colorClass: "thief-color",
+  },
+  {
+    name: "Lollipop Mage",
+    cost: 120,
+    rate: 15,
+    description: "Tread carefully when buying the services from a mage, some say their practice is heresy against all lollipops",
+    colorClass: "mage-color",
+  },
 ];
 
 // DOM elements and variables setup
@@ -24,6 +58,7 @@ let lastTime = performance.now();
 const clickCounts = new Map<string, number>();
 const costElements = new Map<string, HTMLElement>();
 const clickElements = new Map<string, HTMLElement>();
+const descriptionElements = new Map<string, HTMLElement>();
 const buttons = new Map<string, HTMLButtonElement>();
 
 // Counter display setup
@@ -36,7 +71,6 @@ updateCounterDisplay();
 
 // Dynamically create elements for each item
 availableItems.forEach((item) => {
-  // Removed index
   clickCounts.set(item.name, 0);
 
   const clickElement = document.createElement("div");
@@ -50,10 +84,15 @@ availableItems.forEach((item) => {
   costElement.className = "cost-text";
   counterDisplay?.appendChild(costElement);
   costElements.set(item.name, costElement);
+  
+  const descriptionElement = document.createElement("div");
+  descriptionElement.innerText = item.description;
+  descriptionElement.className = `description-text ${item.colorClass}`;
+  counterDisplay?.appendChild(descriptionElement);
+  descriptionElements.set(item.name, descriptionElement);
 });
 
 availableItems.forEach((item, index) => {
-  // index is used here, so it's needed
   const button = document.createElement("button");
   button.id = `upgradeButton${index}`;
   button.innerText = `Upgrade ${item.name}`;
@@ -116,7 +155,7 @@ function handleUpgrade(item: Item) {
     item.cost *= 1.15;
     const costElement = costElements.get(itemName);
     if (costElement) {
-      costElement.innerText = `${itemName} Cost: ${item.cost.toFixed(2)}`;
+      costElement.innerText = `${item.name} Cost: ${item.cost.toFixed(2)}`;
     }
 
     updateCounterDisplay();
