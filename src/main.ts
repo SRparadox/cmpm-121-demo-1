@@ -53,7 +53,7 @@ const availableItems: Item[] = [
 
 // DOM elements and variables setup
 const app: HTMLDivElement = document.querySelector("#app")!;
-const gameName = "Clicker Game 101";
+const gameName = "To Lollipop or to not Lollipop";
 document.title = gameName;
 
 let counter = 0;
