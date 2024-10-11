@@ -1,93 +1,88 @@
 import "./style.css";
 
-//Title of the App
+// Title of the App
 const app: HTMLDivElement = document.querySelector("#app")!;
-
 const gameName = "Clicker Game 101";
 document.title = gameName;
 
-// Counter Increase and Growth Rate
+// Counter and Growth Rate
 let counter = 0;
 let growthRate = 0;
 
-const obj = document.createElement("div");
-obj.innerText = "0 Lollipops";
-obj.className = "test";
+// Create and display counter element
 const counterDisplay = document.getElementById("counterDisplay");
-if (counterDisplay) {
-  counterDisplay.appendChild(obj);
-}
+const counterElement = document.createElement("div");
+counterElement.innerText = "0 Lollipops";
+counterElement.className = "counter-text";
+counterDisplay?.appendChild(counterElement);
 
 let lastTime = performance.now();
 
-// Function to update the counter using requestAnimationFrame
+// Function to update the counter
 function updateCounter(currentTime: number) {
-  // Calculate the time elapsed since the last update
   const deltaTime = currentTime - lastTime;
 
-  // Display the updated growthrate value
-  document.getElementById("counter")!.textContent = growthRate.toString();
+  // Update growth rate display
+  const counterText = document.getElementById("counter");
+  if (counterText) {
+    counterText.textContent = growthRate.toFixed(1);
+  }
 
-  // Enable or disable the upgrade button based on counter value
-  const upgradeButton = document.getElementById(
-    "upgradeButton",
-  ) as HTMLButtonElement;
+  // Update the upgrade button's state
+  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
   if (upgradeButton) {
     upgradeButton.disabled = counter < 10;
   }
 
-  // Check if a second (1000 milliseconds) has passed
+  // Increase counter at the interval of 1 second
   if (deltaTime >= 1000) {
-    // Update counter based only on growth rate
     counter += growthRate;
-
-    obj.innerText = counter + " Lollipops Lollipopped";
-    // Update the lastTime for accurate time-keeping
+    counterElement.innerText = `${counter.toFixed(1)} Lollipops Lollipopped`;
     lastTime = currentTime;
   }
 
-  // Request the next frame
   requestAnimationFrame(updateCounter);
 }
 
-// Start the animation loop
-requestAnimationFrame(updateCounter);
-
+// Initialize DOM content once loaded
 document.addEventListener("DOMContentLoaded", () => {
-  const upgradeButton = document.getElementById(
-    "upgradeButton",
-  ) as HTMLButtonElement;
+  const upgradeButton = document.getElementById("upgradeButton") as HTMLButtonElement;
+  const clickButton = document.getElementById("myButton");
 
   if (upgradeButton) {
-    upgradeButton.addEventListener("click", () => {
-      if (counter >= 10) {
-        counter -= 10;
-        growthRate += 1;
-      }
-    });
+    upgradeButton.addEventListener("click", handleUpgrade);
   } else {
     console.error("Upgrade button not found!");
   }
-
-  // Other DOM-related code goes here
-});
-
-// Button HERE
-document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("myButton");
-
-  if (button) {
-    button.addEventListener("click", () => {
-      console.log("Button was clicked!");
-      counter += 1; //Increase the button
-      //alert(counter);
-      obj.innerText = counter + " Lollipops Lollipopped";
-    });
+  
+  if (clickButton) {
+    clickButton.addEventListener("click", handleButtonClick);
   } else {
     console.error("Button not found!");
   }
+
+  createHeader();
+  requestAnimationFrame(updateCounter);
 });
 
-const header = document.createElement("h1");
-header.innerHTML = gameName;
-app.append(header);
+// Handle the upgrade button click
+function handleUpgrade() {
+  if (counter >= 10) {
+    counter -= 10;
+    growthRate += 0.1;
+  }
+}
+
+// Handle the main button click
+function handleButtonClick() {
+  console.log("Button was clicked!");
+  counter += 1;
+  counterElement.innerText = `${counter} Lollipops Lollipopped`;
+}
+
+// Create and append a header
+function createHeader() {
+  const header = document.createElement("h1");
+  header.innerHTML = gameName;
+  app.append(header);
+}
