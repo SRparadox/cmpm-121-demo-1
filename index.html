@@ -1,92 +1,101 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clickable Button</title>
-  <style>
-    .lollipopButton {
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 120px; /* Increased size */
-      height: 120px; /* Increased size */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px; /* Space for the 'stick' */
-      position: relative;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clickable Button</title>
+    <style>
+      .lollipopButton {
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 120px; /* Increased size */
+        height: 120px; /* Increased size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px; /* Space for the 'stick' */
+        position: relative;
+      }
 
-    .lollipopButton::after {
-      content: '';
-      background-color: #ccc; /* The stick color */
-      width: 10px;
-      height: 40px; /* Lengthened stick for larger button */
-      position: absolute;
-      bottom: -40px; /* Offset for larger button */
-      left: 50%;
-      transform: translateX(-50%);
-    }
+      .lollipopButton::after {
+        content: "";
+        background-color: #ccc; /* The stick color */
+        width: 10px;
+        height: 40px; /* Lengthened stick for larger button */
+        position: absolute;
+        bottom: -40px; /* Offset for larger button */
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-    #myButton {
-      background: linear-gradient(to bottom right, red, orange, yellow, green, blue, indigo, violet); /* Rainbow gradient */
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-      position: relative;
-      margin-left: -600px;
-    }
+      #myButton {
+        background: linear-gradient(
+          to bottom right,
+          red,
+          orange,
+          yellow,
+          green,
+          blue,
+          indigo,
+          violet
+        ); /* Rainbow gradient */
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        position: relative;
+        margin-left: -600px;
+      }
 
-    #myButton::after {
-      content: '';
-      background-color: #ccc;
-      width: 10px;
-      height: 40px;
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+      #myButton::after {
+        content: "";
+        background-color: #ccc;
+        width: 10px;
+        height: 40px;
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-    #upgradeButton {
-      background-color: rgb(128, 23, 0);
-    }
+      #upgradeButton {
+        background-color: rgb(128, 23, 0);
+      }
 
-    #upgradeButton1 {
-      background-color: blue;
-    }
+      #upgradeButton1 {
+        background-color: blue;
+      }
 
-    #upgradeButton10 {
-      background-color: rgb(51, 193, 70);
-    }
-  </style>
-</head>
-<body>
-  <div id="app" style="margin-top: -600px"></div>
-  <script type="module" src="/src/main.ts"></script>
+      #upgradeButton10 {
+        background-color: rgb(51, 193, 70);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" style="margin-top: -600px"></div>
+    <script type="module" src="/src/main.ts"></script>
 
-  <button id="myButton">Click to 🍭</button>
+    <button id="myButton">Click to 🍭</button>
 
-  <div id="counterDisplay">Counter:</div>
+    <div id="counterDisplay">Counter:</div>
 
-  <div>
-    <p>Lolliping per Second: <span id="counter">0.00</span></p>
-    <button id="upgradeButton" class="lollipopButton">
-      Strawberry Flavor (+0.1 L/Sec)
-    </button>
-    <button id="upgradeButton1" class="lollipopButton">
-      Blueberry Flavor (+1 L/Sec)
-    </button>
-    <button id="upgradeButton10" class="lollipopButton">
-      Lemon Flavor (+10 L/Sec)
-    </button>
-  </div>
-</body>
+    <div>
+      <p>Lolliping per Second: <span id="counter">0.00</span></p>
+      <button id="upgradeButton" class="lollipopButton">
+        Strawberry Flavor (+0.1 L/Sec)
+      </button>
+      <button id="upgradeButton1" class="lollipopButton">
+        Blueberry Flavor (+1 L/Sec)
+      </button>
+      <button id="upgradeButton10" class="lollipopButton">
+        Lemon Flavor (+10 L/Sec)
+      </button>
+    </div>
+  </body>
 </html>
