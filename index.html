@@ -9,22 +9,22 @@
         color: white;
         border: none;
         border-radius: 50%;
-        width: 120px; /* Increased size */
-        height: 120px; /* Increased size */
+        width: 120px;
+        height: 120px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 10px; /* Space for the 'stick' */
+        margin-bottom: 10px;
         position: relative;
       }
 
       .lollipopButton::after {
         content: "";
-        background-color: #ccc; /* The stick color */
+        background-color: #ccc;
         width: 10px;
-        height: 40px; /* Lengthened stick for larger button */
+        height: 40px;
         position: absolute;
-        bottom: -40px; /* Offset for larger button */
+        bottom: -40px;
         left: 50%;
         transform: translateX(-50%);
       }
@@ -39,7 +39,7 @@
           blue,
           indigo,
           violet
-        ); /* Rainbow gradient */
+        );
         color: white;
         border: none;
         border-radius: 50%;
@@ -63,18 +63,6 @@
         left: 50%;
         transform: translateX(-50%);
       }
-
-      #upgradeButton {
-        background-color: rgb(128, 23, 0);
-      }
-
-      #upgradeButton1 {
-        background-color: blue;
-      }
-
-      #upgradeButton10 {
-        background-color: rgb(51, 193, 70);
-      }
     </style>
   </head>
   <body>
@@ -84,18 +72,5 @@
     <button id="myButton">Click to 🍭</button>
 
     <div id="counterDisplay">Counter:</div>
-
-    <div>
-      <p>Lolliping per Second: <span id="counter">0.00</span></p>
-      <button id="upgradeButton" class="lollipopButton">
-        Strawberry Flavor (+0.1 L/Sec)
-      </button>
-      <button id="upgradeButton1" class="lollipopButton">
-        Blueberry Flavor (+1 L/Sec)
-      </button>
-      <button id="upgradeButton10" class="lollipopButton">
-        Lemon Flavor (+10 L/Sec)
-      </button>
-    </div>
   </body>
 </html>
