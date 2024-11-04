@@ -143,30 +143,39 @@ document.addEventListener("DOMContentLoaded", () => {
   requestAnimationFrame(updateCounter);
 });
 
-function handleUpgrade(item: Item) {
-  if (counter >= item.cost) {
-    counter -= item.cost;
-    growthRate += item.rate;
-    const itemName = item.name;
+function canPurchaseUpgrade(item: Item): boolean {
+  return counter >= item.cost;
+}
 
-    const clickCount = (clickCounts.get(itemName) || 0) + 1;
-    clickCounts.set(itemName, clickCount);
+function updateItemData(item: Item, clickCount: number): void {
+  counter -= item.cost;
+  growthRate += item.rate;
+  clickCounts.set(item.name, clickCount);
+  item.cost *= 1.15;
+}
 
-    const clickElement = clickElements.get(itemName);
-    if (clickElement) {
-      clickElement.innerText = `${itemName} Flavor Purchased: ${clickCount}`;
-    }
-
-    item.cost *= 1.15;
-    const costElement = costElements.get(itemName);
-    if (costElement) {
-      costElement.innerText = `${item.name} Cost: ${item.cost.toFixed(2)}`;
-    }
-
-    updateCounterDisplay();
+function updateDOMForItem(item: Item, clickCount: number): void {
+  const clickElement = clickElements.get(item.name);
+  if (clickElement) {
+    clickElement.innerText = `${item.name} Flavor Purchased: ${clickCount}`;
+  }
+  
+  const costElement = costElements.get(item.name);
+  if (costElement) {
+    costElement.innerText = `${item.name} Cost: ${item.cost.toFixed(2)}`;
   }
 }
 
+function handleUpgrade(item: Item) {
+  if (canPurchaseUpgrade(item)) {
+    const itemName = item.name;
+    const clickCount = (clickCounts.get(itemName) || 0) + 1;
+    
+    updateItemData(item, clickCount);
+    updateDOMForItem(item, clickCount);
+    updateCounterDisplay();
+  }
+}
 // Handle the main button click
 function handleButtonClick() {
   console.log("Button was clicked!");
