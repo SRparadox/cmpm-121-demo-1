@@ -110,22 +110,27 @@ availableItems.forEach((item, index) => {
 });
 
 // Function to update the counter
-function updateCounter(currentTime: number) {
+function updateCounterValue(currentTime: number): void {
   const deltaTime = currentTime - lastTime;
-
   if (deltaTime >= 1000) {
     counter += growthRate;
-    updateCounterDisplay();
     lastTime = currentTime;
+    updateCounterDisplay();
   }
+}
 
+function updateButtonStates(): void {
   availableItems.forEach((item) => {
     const button = buttons.get(item.name);
     if (button) {
       button.disabled = counter < item.cost;
     }
   });
+}
 
+function updateCounter(currentTime: number) {
+  updateCounterValue(currentTime);
+  updateButtonStates();
   requestAnimationFrame(updateCounter);
 }
 
