@@ -6,13 +6,14 @@
     <title>Clickable Button</title>
     <style>
       body {
-        background-image: url("image.png");
-        background-size: cover; /* Ensures the image covers the entire background */
-        background-position: center; /* Centers the image on the page */
-        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-image: url('image.png');
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
       }
 
-      .lollipopButton {
+      .lollipopButton,
+      #myButton {
         color: white;
         border: none;
         border-radius: 50%;
@@ -23,17 +24,6 @@
         justify-content: center;
         margin-bottom: 10px;
         position: relative;
-      }
-
-      .lollipopButton::after {
-        content: "";
-        background-color: #ccc;
-        width: 10px;
-        height: 40px;
-        position: absolute;
-        bottom: -40px;
-        left: 50%;
-        transform: translateX(-50%);
       }
 
       #myButton {
@@ -47,16 +37,6 @@
           indigo,
           violet
         );
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 10px;
-        position: relative;
         margin-left: -600px;
       }
 
@@ -70,6 +50,15 @@
         left: 50%;
         transform: translateX(-50%);
       }
+
+      #gifDisplay {
+        background-image: url('Lol.gif');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 200px; /* Adjust width as needed */
+        height: 200px; /* Adjust height as needed */
+        margin-top: 20px; /* Space it out from other elements */
+      }
     </style>
   </head>
   <body>
@@ -79,5 +68,8 @@
     <button id="myButton">Click to 🍭</button>
 
     <div id="counterDisplay">Counter:</div>
+
+    <!-- Adding the GIF display section -->
+    <div id="gifDisplay"></div>
   </body>
 </html>
